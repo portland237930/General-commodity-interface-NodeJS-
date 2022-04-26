@@ -9,7 +9,7 @@ class UserController {
             // 操作数据库
         const res = await createUser(user_name, password)
         console.log(res);
-        // 获得结果
+        // 注册成功结果
         ctx.body = {
             code: "0",
             message: "用户注册成功",

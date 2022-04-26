@@ -60,3 +60,16 @@ npm i mysql2 sequenlize
 1.导入模块,创建数据模型
 2.指定模型同步,导出User数据模型
 # 添加用户
+使用User.create方法使用户数据持久化
+所有数据库的操作都在 Service 层完成, Service 调用 Model 完成数据库操作
+改写src/service/user.service.js将用户模型的数据添加至数据库
+改写user.controller.js文件将数据成功的结果返回
+# 错误处理
+在控制器中, 对不同的错误进行处理, 返回不同的提示错误提示, 提高代码质量
+校验用户已存在和用户密码不存在的情况,通过中间件流程控制后校验
+# 拆分中间件
+将错误返回请求作为常量存至consitant/err_type.js文件中
+将错误处理函数存至app/errhandler.js文件中通过校验码code获得状态码
+# 统一错误处理
+在出错的地方使用ctx.app.emit提交错误
+在app中通过app.on监听

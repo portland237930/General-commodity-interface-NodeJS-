@@ -1,4 +1,5 @@
 module.exports = (err, ctx) => {
+    // 用户注册错误处理函数
     // 初始化状态码
     let status = 500
     switch (err.code) {

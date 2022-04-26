@@ -9,5 +9,6 @@ const errhandler = require("./errhandler")
 const app = new Koa()
 app.use(KoaBody())
 app.use(UserRouter.routes())
+    // 绑定错误处理事件
 app.on("error", errhandler)
 module.exports = app
