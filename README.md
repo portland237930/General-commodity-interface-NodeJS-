@@ -78,3 +78,6 @@ npm i mysql2 sequenlize
 在service层数据未被接收到时可以及时响应错误
 在user_controller.js中创建数据字段时添加错误处理
 在user_validate.js中添加错误处理
+# 用户加密
+npm i bcryptjs 安装bcryptjs
+构建密码加密中间件 cryptPassword

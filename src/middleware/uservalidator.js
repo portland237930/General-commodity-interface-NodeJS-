@@ -1,7 +1,9 @@
 // 引入用户校验常量
 const { userFormartErr, userAlreadyExisits, userRegisterError } = require("../constant/err_type")
 const { getUserInfo } = require("../service/user.service")
-    // 用户名校验中间件
+    // 引入密码加密
+const bcrypt = require('bcryptjs');
+// 用户名校验中间件
 const uservalidator = async(ctx, next) => {
     const { user_name, password } = ctx.request.body
         // 如果用户名或密码不存在
@@ -44,8 +46,18 @@ const userexisitvalidator = async(ctx, next) => {
     // 校验成功
     await next()
 }
+const cryptPassword = async(ctx, next) => {
+    const { password } = ctx.request.body
+        // 密码加密
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(password, salt);
+    // 获得加密结果
+    ctx.request.body.password = hash;
+    // 执行下个流程
+    await next()
+}
 module.exports = {
     uservalidator,
-    userexisitvalidator
-
+    userexisitvalidator,
+    cryptPassword
 }
