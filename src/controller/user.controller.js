@@ -6,18 +6,7 @@ class UserController {
         // 获取数据
         // console.log(ctx.request.body);
         const { user_name, password } = ctx.request.body
-            // 如果用户已经存在
-        if (await getUserInfo({ user_name })) {
-            console.error("用户已经存在", ctx.request.body);
-            ctx.status = 409
-            ctx.body = {
-                code: "10002",
-                message: "用户已经存在",
-                result: ""
-            }
-            return
-        }
-        // 操作数据库
+            // 操作数据库
         const res = await createUser(user_name, password)
         console.log(res);
         // 获得结果
