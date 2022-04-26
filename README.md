@@ -73,3 +73,8 @@ npm i mysql2 sequenlize
 # 统一错误处理
 在出错的地方使用ctx.app.emit提交错误
 在app中通过app.on监听
+# 使用trycatch优化错误处理
+调用service层的时候会返回一个Promise对象,需要用async和await表达式对Promise对象进行解析,使用trycatch流程控制
+在service层数据未被接收到时可以及时响应错误
+在user_controller.js中创建数据字段时添加错误处理
+在user_validate.js中添加错误处理

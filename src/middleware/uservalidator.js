@@ -1,5 +1,5 @@
 // 引入用户校验常量
-const { userFormartErr, userAlreadyExisits } = require("../consitant/err_type")
+const { userFormartErr, userAlreadyExisits, userRegisterError } = require("../constant/err_type")
 const { getUserInfo } = require("../service/user.service")
     // 用户名校验中间件
 const uservalidator = async(ctx, next) => {
@@ -17,12 +17,28 @@ const uservalidator = async(ctx, next) => {
 }
 const userexisitvalidator = async(ctx, next) => {
     const { user_name } = ctx.request.body
-    if (await getUserInfo({ user_name })) {
-        console.error("用户已经存在", ctx.request.body);
-        // 触发错误处理
-        console.log(userAlreadyExisits);
-        ctx.status = 409
-        ctx.app.emit("error", userAlreadyExisits, ctx)
+        // if (await getUserInfo({ user_name })) {
+        //     console.error("用户已经存在", ctx.request.body);
+        //     // 触发错误处理
+        //     console.log(userAlreadyExisits);
+        //     ctx.status = 409
+        //     ctx.app.emit("error", userAlreadyExisits, ctx)
+        //     return
+        // }
+        // 错误处理
+    try {
+        // 判断是否获得到用户信息
+        const res = await getUserInfo({ user_name })
+            // 如果用户已存在
+        if (res) {
+            console.error("用户已存在", { user_name });
+            ctx.app.emit("error", userAlreadyExisits, ctx)
+            return
+        }
+    } catch (error) {
+        // 如果未获得到用户信息
+        console.error("获取用户错误信息", error);
+        ctx.app.emit("error", userRegisterError, ctx)
         return
     }
     // 校验成功
@@ -31,4 +47,5 @@ const userexisitvalidator = async(ctx, next) => {
 module.exports = {
     uservalidator,
     userexisitvalidator
+
 }

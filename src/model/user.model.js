@@ -27,5 +27,6 @@ const User = seq.define("zd_user", {
         timestamps: false
     })
     // 模型同步（如果表存在则覆盖）
-User.sync({ force: true })
+    // User.sync({ force: true })
+User.sync()
 module.exports = User
