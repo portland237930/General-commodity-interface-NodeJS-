@@ -1,6 +1,6 @@
 // 用户路由
 const Router = require('koa-router')
-const { register, login } = require("../controller/user.controller")
+const { register, login, changePassword } = require("../controller/user.controller")
     // 引入用户注册校验中间件
 const { uservalidator, userexisitvalidator, cryptPassword, verifyLogin } = require("../middleware/uservalidator")
     // 引入token校验中间件
@@ -12,7 +12,5 @@ router.post("/register", userexisitvalidator, uservalidator, cryptPassword, regi
     // 用户登录接口
 router.post("/login", verifyLogin, login)
     // 修改密码接口
-router.patch("/cwd", auth, (ctx, next) => {
-    ctx.body = "修改密码成功"
-})
+router.patch("/cwd", auth, cryptPassword, changePassword)
 module.exports = router

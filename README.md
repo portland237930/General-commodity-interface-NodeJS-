@@ -102,3 +102,7 @@ pm.test("Successful POST request", function () {
     pm.collectionVariables.set('token',res.result.token);
 });
 使用户登录接口的token自动变为全局变量
+# 修改密码接口
+在修改密码接口中增加密码加密中间件cryptPassword,在user.controller.js文件中添加changePassword回调函数
+在changePassword中通过service层的updateById方法操作数据库中的字段
+通过更新数据库操作返回的值判断是否成功更改密码,返回成功或返回的值到ctx.body中

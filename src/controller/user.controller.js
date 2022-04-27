@@ -1,5 +1,5 @@
-// 导入数据库
-const { createUser, getUserInfo } = require('../service/user.service')
+// 导入数据库服务层功能
+const { createUser, getUserInfo, updateById } = require('../service/user.service')
     // 引入Jsonwebtoken
 const jwt = require("jsonwebtoken")
     // 引入环境变量
@@ -33,21 +33,43 @@ class UserController {
         }
         // 用户登录请求
     async login(ctx, next) {
-        const { user_name } = ctx.request.body
-        try {
-            // 通过用户名查询数据库字段,排除password
-            const { password, ...res } = await getUserInfo({ user_name })
-                // 返回登录成功结果
+            const { user_name } = ctx.request.body
+            try {
+                // 通过用户名查询数据库字段,排除password
+                const { password, ...res } = await getUserInfo({ user_name })
+                    // 返回登录成功结果
+                ctx.body = {
+                    code: "0",
+                    mesage: "用户登录成功",
+                    // 返回token令牌
+                    result: {
+                        token: jwt.sign(res, JWT_SECRET, { expiresIn: '1d' })
+                    }
+                }
+            } catch (error) {
+                console.error("登录失败", error);
+            }
+        }
+        // 修改密码回调
+    async changePassword(ctx, next) {
+        // 获得修改密码的用户id和修改后的密码
+        const id = ctx.state.user.id
+        const password = ctx.request.body.password
+        console.log(id, password)
+            // 操作数据库
+        if (await updateById({ id, password })) {
+            // 如果修改成功返回成功结果
             ctx.body = {
                 code: "0",
-                mesage: "用户登录成功",
-                // 返回token令牌
-                result: {
-                    token: jwt.sign(res, JWT_SECRET, { expiresIn: '1d' })
-                }
+                message: "修改密码成功",
+                result: ""
             }
-        } catch (error) {
-            console.error("登录失败", error);
+        } else {
+            ctx.body = {
+                code: "10007",
+                message: "修改密码失败",
+                result: ""
+            }
         }
     }
 }
