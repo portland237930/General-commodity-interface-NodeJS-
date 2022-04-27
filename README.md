@@ -8,7 +8,7 @@ git add . 将当前目录全部添加到仓库
 # 提交项目
 git commit -m '1-项目初始化'
 # 显示项目版本
-git log 
+git log --pretty=oneline
 # 安装koa框架
 npm install koa
 # 编写最基本的app
@@ -89,3 +89,16 @@ npm i bcryptjs 安装bcryptjs
 安装jsonwebtoken npm i jsonwebtoken
 在用户登录请求函数中通过请求的user_name向数据库发起请求获得除了密码的信息
 将得到的信息作为校验信息并在.env下创建密钥,设置过期时间通过jwt.sign的结果作为token返回给用户
+# 用户认证
+创建auth中间件 使用auth函数处理请求获得的token,将token使用verify方法解码后添加到ctx.state.user中
+添加错误处理,将token过期和token无效的错误处理信息添加到error_type中
+在user.router.js文件中添加router.patch方法添加修改密码接口
+在postman中添加token全局变量
+在用户登录测试接口的Tests中
+pm.test("Successful POST request", function () {
+    // 响应结果转换格式
+    const res=pm.response.json()
+    // 设置token变量
+    pm.collectionVariables.set('token',res.result.token);
+});
+使用户登录接口的token自动变为全局变量
