@@ -85,3 +85,7 @@ npm i bcryptjs 安装bcryptjs
 创建verifylogin中间件进行密码校验
 使用getUserInfo方法通过user_name查询数据库判断用户是否存在,如果错误就发送错误请求到错误处理函数
 通过bcrypt.compareSync(password, res.password)判断密码是否匹配,如果错误就发送错误请求到错误处理函数
+# 颁发token
+安装jsonwebtoken npm i jsonwebtoken
+在用户登录请求函数中通过请求的user_name向数据库发起请求获得除了密码的信息
+将得到的信息作为校验信息并在.env下创建密钥,设置过期时间通过jwt.sign的结果作为token返回给用户
