@@ -114,3 +114,4 @@ pm.test("Successful POST request", function () {
 # 管理员权限校验
 对上传图片接口使用auth中间件进行Token校验和管理员校验
 创建hasNoAdminExist中间件校验数据库中is_admin字段是否为1发起错误处理函数
+111111我朝啊啊1111111111111111
