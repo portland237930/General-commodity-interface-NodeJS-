@@ -106,3 +106,8 @@ pm.test("Successful POST request", function () {
 在修改密码接口中增加密码加密中间件cryptPassword,在user.controller.js文件中添加changePassword回调函数
 在changePassword中通过service层的updateById方法操作数据库中的字段
 通过更新数据库操作返回的值判断是否成功更改密码,返回成功或返回的值到ctx.body中
+# 创建上传商品接口
+新建router/goods.route.js文件并以post请求创建上传商品接口
+新建controller/goods.controller.js文件创建upload回调函数
+# 路由自动加载
+在router中新建index.js文件通过fs.readdirSync同步读取当前路径下的所有文件实现自动加载
