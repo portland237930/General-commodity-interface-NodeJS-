@@ -1,3 +1,6 @@
+/**
+ * 用户校验中间件
+ */
 // 引入用户校验常量
 const { userFormartErr, userAlreadyExisits, userRegisterError, userDoesNotExist, invalidPassword, userLoginError } = require("../constant/err_type")
 const { getUserInfo } = require("../service/user.service")

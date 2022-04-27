@@ -1,3 +1,6 @@
+/**
+ * 数据库创建模块
+ */
 // 导入sequelize
 const { Sequelize } = require('sequelize');
 // 导入配置文件

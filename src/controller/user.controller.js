@@ -1,3 +1,6 @@
+/**
+ * 用户接口业务模块
+ */
 // 导入数据库服务层功能
 const { createUser, getUserInfo, updateById } = require('../service/user.service')
     // 引入Jsonwebtoken

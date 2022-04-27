@@ -1,3 +1,6 @@
+/**
+ * 商品接口业务模块
+ */
 class GoodsController {
     // 上传图片请求
     async upload(ctx, next) {

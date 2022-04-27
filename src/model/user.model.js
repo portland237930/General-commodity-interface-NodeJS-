@@ -1,4 +1,6 @@
-// 数据模型
+/**
+ * Sequelize数据库模型
+ */
 // 导入模块
 const { DataTypes } = require("sequelize")
     // 获得数据库
@@ -20,7 +22,7 @@ const User = seq.define("zd_user", {
         is_admin: {
             type: DataTypes.BOOLEAN,
             allowNull: false,
-            defaultValue: 1,
+            defaultValue: 0,
             comment: "0为管理员,1为普通用户,默认为0"
         }
     }, {

@@ -111,3 +111,6 @@ pm.test("Successful POST request", function () {
 新建controller/goods.controller.js文件创建upload回调函数
 # 路由自动加载
 在router中新建index.js文件通过fs.readdirSync同步读取当前路径下的所有文件实现自动加载
+# 管理员权限校验
+对上传图片接口使用auth中间件进行Token校验和管理员校验
+创建hasNoAdminExist中间件校验数据库中is_admin字段是否为1发起错误处理函数

@@ -1,3 +1,6 @@
+/**
+ * 应用
+ */
 // 导入模块
 const Koa = require('koa')
 const KoaBody = require('koa-body')

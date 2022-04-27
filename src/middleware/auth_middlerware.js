@@ -1,7 +1,9 @@
+/**
+ * Token校验中间件
+ */
 const jwt = require('jsonwebtoken')
-
 const { JWT_SECRET } = require('../config/config.default')
-
+const { HasNoAdminExist } = require("../constant/err_type")
 const {
     tokenExpiredError,
     invalidToken,
@@ -32,6 +34,18 @@ const auth = async(ctx, next) => {
     // 通过验证
     await next()
 }
+const hasNoAdminExist = async(ctx, next) => {
+    // 查询is_admin字段
+    const is_admin = ctx.state.user.is_admin
+    console.log(is_admin);
+    // 如果用户没有管理员权限
+    if (!is_admin) {
+        console.error("用户没有管理员权限");
+        return ctx.app.emit("error", HasNoAdminExist, ctx)
+    }
+    await next()
+}
 module.exports = {
-    auth
+    auth,
+    hasNoAdminExist
 }

@@ -1,3 +1,6 @@
+/**
+ * 用户路由模块
+ */
 // 用户路由
 const Router = require('koa-router')
 const { register, login, changePassword } = require("../controller/user.controller")
