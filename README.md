@@ -81,3 +81,7 @@ npm i mysql2 sequenlize
 # 用户加密
 npm i bcryptjs 安装bcryptjs
 构建密码加密中间件 cryptPassword
+# 密码验证
+创建verifylogin中间件进行密码校验
+使用getUserInfo方法通过user_name查询数据库判断用户是否存在,如果错误就发送错误请求到错误处理函数
+通过bcrypt.compareSync(password, res.password)判断密码是否匹配,如果错误就发送错误请求到错误处理函数
