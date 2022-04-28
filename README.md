@@ -9,6 +9,8 @@ git add . 将当前目录全部添加到仓库
 git commit -m '1-项目初始化'
 # 显示项目版本
 git log --pretty=oneline
+# 推送至git仓库
+git remote add origin git@github.com:michaelliao/learngit.git
 # 安装koa框架
 npm install koa
 # 编写最基本的app
@@ -114,3 +116,9 @@ pm.test("Successful POST request", function () {
 # 管理员权限校验
 对上传图片接口使用auth中间件进行Token校验和管理员校验
 创建hasNoAdminExist中间件校验数据库中is_admin字段是否为1发起错误处理函数
+# 完成上传图片接口
+在app/index.js中完成对上传图片的配置
+使用path模块指定上传的路径
+安装koa-static并应用到app中
+在controller/goods.controoler中通过判断ctx.request.files.file是否存在返回成功结果失败则触发错误处理函数
+判断文件类型,如果错误则触发错误函数

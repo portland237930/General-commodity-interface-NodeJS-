@@ -11,7 +11,7 @@ const {
 } = require('../constant/err_type')
     // 用户token认证中间件
 const auth = async(ctx, next) => {
-    // 从请求头中获得token
+    // 从请求头中获得token,默认auth为空时能被请求得到
     const { authorization = '' } = ctx.request.header
     const token = authorization.replace('Bearer ', '')
         // console.log(token)
