@@ -128,3 +128,7 @@ pm.test("Successful POST request", function () {
 安装koa-parameter并在app中引用
 创建参数校验中间件并设置方法
 设置指定校验参数,使用trycatch进行错误处理,如果校验失败则触发错误函数
+创建发布商品回调函数PubGoods,创建商品Service层并创建createGoods发布商品方法
+创建数据库模型并指定字段和字段类型
+如果数据库创建失败或商品信息获取失败则触发错误函数
+成功则返回正确信息和商品信息

@@ -4,7 +4,8 @@
 // 引入模块
 const path = require('path');
 // 引入错误信息
-const { FileUploadError, UnSupportFileError } = require("../constant/err_type")
+const { FileUploadError, UnSupportFileError, publishGoodsError } = require("../constant/err_type")
+const { createGoods } = require("../service/goods.service")
 class GoodsController {
     // 上传图片回调
     async upload(ctx, next) {
@@ -33,7 +34,22 @@ class GoodsController {
         }
         // 发布商品回调
     async PubGoods(ctx, next) {
-        ctx.body = "发布商品成功"
+        try {
+            // 发起创建商品请求
+            const res = await createGoods(ctx.request.body)
+                // 发起请求成功
+            if (res) {
+                // 返回成功信息
+                ctx.body = {
+                    code: "0",
+                    message: "发布商品成功",
+                    result: res
+                }
+            }
+        } catch (error) {
+            console.error("商品发布失败", error);
+            ctx.app.emit("error", publishGoodsError, ctx)
+        }
     }
 }
 module.exports = new GoodsController()

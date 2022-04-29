@@ -1,5 +1,5 @@
 /**
- * 数据库操作service层
+ * 用户数据库操作service层
  */
 // 获得User模型
 const User = require("../model/user.model")

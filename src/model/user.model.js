@@ -1,5 +1,5 @@
 /**
- * Sequelize数据库模型
+ * 用户数据库模型
  */
 // 导入模块
 const { DataTypes } = require("sequelize")
