@@ -67,5 +67,11 @@ module.exports = {
         code: "10202",
         message: "文件类型不支持",
         result: ""
+    },
+    // 参数格式错误
+    ParamsFormatError: {
+        code: "10203",
+        message: "参数格式错误",
+        result: ""
     }
 }

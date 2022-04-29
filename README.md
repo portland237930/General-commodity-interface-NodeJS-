@@ -11,6 +11,7 @@ git commit -m '1-项目初始化'
 git log --pretty=oneline
 # 推送至git仓库
 git remote add origin git@github.com:michaelliao/learngit.git
+git push -f origin
 # 安装koa框架
 npm install koa
 # 编写最基本的app
@@ -122,3 +123,8 @@ pm.test("Successful POST request", function () {
 安装koa-static并应用到app中
 在controller/goods.controoler中通过判断ctx.request.files.file是否存在返回成功结果失败则触发错误处理函数
 判断文件类型,如果错误则触发错误函数
+# 发布商品接口
+创建发布商品接口并进行token用户登录和管理员权限校验
+安装koa-parameter并在app中引用
+创建参数校验中间件并设置方法
+设置指定校验参数,使用trycatch进行错误处理,如果校验失败则触发错误函数

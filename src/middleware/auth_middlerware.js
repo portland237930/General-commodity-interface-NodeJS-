@@ -37,8 +37,8 @@ const auth = async(ctx, next) => {
 const hasNoAdminExist = async(ctx, next) => {
     // 查询is_admin字段
     const is_admin = ctx.state.user.is_admin
-    console.log(is_admin);
-    // 如果用户没有管理员权限
+        // console.log(is_admin);
+        // 如果用户没有管理员权限
     if (!is_admin) {
         console.error("用户没有管理员权限");
         return ctx.app.emit("error", HasNoAdminExist, ctx)
