@@ -157,3 +157,8 @@ Service层更新数据库方法updategoods接受id和商品信息参数,使用�
 在购物车数据模型中与商品模型使用belongsTo制造关联，外键为goods_id,
 创建路由并用auth中间件确认Token,在service层使用findAndCountAll获得购物车的总数、购物车商品信息
 将成功和商品信息返回
+# 更新购物车接口
+改写购物车参数校验中间件validator,使用闭包传入一个rule使外部调用时可自定义校验参数
+在控制器判断num和selected参数是否均未传，否则触发数据格式错误
+在service层使用findByPk方法找到购物车数据表指定字段,如果找不到则返回空值
+如果num未传或selected未传则只更新一个字段并存至数据库
