@@ -26,7 +26,9 @@ app.use(KoaBody({
             uploadDir: path.join(__dirname, "../upload"),
             // 写入的文件将包括原始文件的扩展名
             keepExtensions: true
-        }
+        },
+        // 允许解析类型请求
+        parsedMethods: ['POST', 'PUT', 'PATCH', 'DELETE', 'GET']
     }))
     // 允许静态资源上传
 app.use(KoaStatic(path.join(__dirname, "../upload")))

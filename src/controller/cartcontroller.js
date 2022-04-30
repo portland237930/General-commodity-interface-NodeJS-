@@ -2,8 +2,8 @@
  * 购物车业务模块
  */
 // 导入service层
-const { CreateOrUpdate, findAll, update } = require("../service/carts.service")
-const { cartFormatError } = require("../constant/err_type")
+const { CreateOrUpdate, findAll, update, deleteCart } = require("../service/carts.service")
+const { cartFormatError, invalidGoodsId } = require("../constant/err_type")
 class CartsController {
     // 添加购物车回调
     async addcarts(ctx) {
@@ -45,6 +45,16 @@ class CartsController {
             code: "0",
             message: "更新购物车成功",
             result: res
+        }
+    }
+    async deleteCart(ctx) {
+        const { ids } = ctx.request.body
+        console.log(ids);
+        const res = await deleteCart(ids)
+        ctx.body = {
+            code: "0",
+            message: "删除购物车成功",
+            result: ""
         }
     }
 }

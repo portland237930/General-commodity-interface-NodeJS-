@@ -162,3 +162,8 @@ Service层更新数据库方法updategoods接受id和商品信息参数,使用�
 在控制器判断num和selected参数是否均未传，否则触发数据格式错误
 在service层使用findByPk方法找到购物车数据表指定字段,如果找不到则返回空值
 如果num未传或selected未传则只更新一个字段并存至数据库
+# 删除购物车接口
+在koabody中间件中设置参数 parsedMethods: ['POST', 'PUT', 'PATCH', 'DELETE', 'GET']指定请求类型使ctx.request.body可以解析delete请求
+创建Delete请求类型的接口并设置登录校验和参数校验,在控制器中等待Service层完成后发送成功信息
+在Service层根据传来的数组使用[Op.in]使商品ID符合数组内任何数字的字段删除
+

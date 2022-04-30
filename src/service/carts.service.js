@@ -73,7 +73,21 @@ class CartService {
             // 将数据存于数据库
         return res.save()
     }
-
+    async deleteCart(ids) {
+        try {
+            // 删除指定字段
+            return await Cart.destroy({
+                where: {
+                    // 等价数据库查询IN[ids]
+                    id: {
+                        [Op.in]: ids
+                    }
+                }
+            })
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
 }
 module.exports = new CartService()
