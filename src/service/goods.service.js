@@ -33,5 +33,23 @@ class GoodsService {
         const res = await Goods.restore({ where: { id } })
         return res > 0
     }
+    async findAll(pageNum, pageSize) {
+        // // 商品总数(自动索引deleteAt为空的值)
+        // const count = await Goods.count()
+        //     // 获得偏移量
+        // const offset = (pageNum - 1) * pageSize
+        //     // 根据offset和limit查询数据库
+        // const row = await Goods.findAll({ offset: offset, limit: pageSize * 1 })
+        // 使用findAndCountAll方法获得商品总数和商品列表信息
+        const offset = (pageNum - 1) * pageSize
+        const { count, rows } = await Goods.findAndCountAll({ offset: offset, limit: pageSize * 1 })
+            // 返回商品信息
+        return {
+            pageNum,
+            pageSize,
+            total: count,
+            list: rows
+        }
+    }
 }
 module.exports = new GoodsService()

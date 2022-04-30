@@ -9,7 +9,7 @@ const router = new Router({ prefix: '/goods' })
 const { auth, hasNoAdminExist } = require("../middleware/auth_middlerware")
     // 引入参数校验中间件
 const { paramsValidator } = require("../middleware/goods_middlerware")
-const { UploadPictures, PubGoods, UpdateGoods, DeleteGoods, RestoreGoods } = require("../controller/goods.controller")
+const { UploadPictures, PubGoods, UpdateGoods, DeleteGoods, RestoreGoods, findAllGoods } = require("../controller/goods.controller")
     // 上传商品接口
 router.post("/upload", auth, hasNoAdminExist, UploadPictures)
     // 发布商品接口
@@ -20,4 +20,6 @@ router.put("/updategoods/:id", auth, hasNoAdminExist, paramsValidator, UpdateGoo
 router.post("/deletegoods/:id", auth, hasNoAdminExist, DeleteGoods)
     // 上架商品接口
 router.post("/restoregoods/:id", auth, hasNoAdminExist, RestoreGoods)
+    // 获取商品列表接口
+router.get("/goodslist", findAllGoods)
 module.exports = router

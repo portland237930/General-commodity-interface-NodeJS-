@@ -5,7 +5,7 @@
 const path = require('path');
 // 引入错误信息
 const { FileUploadError, UnSupportFileError, publishGoodsError, invalidGoodsId } = require("../constant/err_type")
-const { createGoods, updategoods, deletegoods, restoregoods } = require("../service/goods.service")
+const { createGoods, updategoods, deletegoods, restoregoods, findAll } = require("../service/goods.service")
 class GoodsController {
     // 上传图片回调
     async UploadPictures(ctx, next) {
@@ -73,30 +73,43 @@ class GoodsController {
         }
         // 下架商品回调
     async DeleteGoods(ctx) {
-        // 等待商品结果
-        const res = await deletegoods(ctx.params.id)
-            // console.log(res);
-            // 判断删除是否成功
-        if (res) {
-            ctx.body = {
-                code: "0",
-                message: "下架商品成功",
-                result: ""
+            // 等待商品结果
+            const res = await deletegoods(ctx.params.id)
+                // console.log(res);
+                // 判断删除是否成功
+            if (res) {
+                ctx.body = {
+                    code: "0",
+                    message: "下架商品成功",
+                    result: ""
+                }
+            } else {
+                ctx.app.emit("error", invalidGoodsId, ctx)
             }
-        } else {
-            ctx.app.emit("error", invalidGoodsId, ctx)
         }
-    }
+        // 上架商品回调
     async RestoreGoods(ctx) {
-        const res = await restoregoods(ctx.params.id)
+            const res = await restoregoods(ctx.params.id)
+            if (res) {
+                ctx.body = {
+                    code: "0",
+                    message: "商品上架成功",
+                    result: ""
+                }
+            } else {
+                ctx.app.emit("error", invalidGoodsId, ctx)
+            }
+        }
+        // 获取商品列表回调
+    async findAllGoods(ctx) {
+        const { pageNum = 1, pageSize = 10 } = ctx.request.query
+        const res = await findAll(pageNum, pageSize)
         if (res) {
             ctx.body = {
-                code: "0",
-                message: "商品上架成功",
-                result: ""
+                code: 0,
+                message: "获取商品列表成功",
+                result: res
             }
-        } else {
-            ctx.app.emit("error", invalidGoodsId, ctx)
         }
     }
 }
