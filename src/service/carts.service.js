@@ -4,6 +4,7 @@
 // 引入用户模型
 const Cart = require('../model/carts.model')
 const { Op } = require("sequelize")
+const Goods = require("../model/goods.model")
 class CartService {
     async CreateOrUpdate(user_id, goods_id) {
         // console.log(goods_id);
@@ -16,6 +17,7 @@ class CartService {
                     },
                 }
             })
+            // console.log(res);
             // console.log(res);
             // 如果字段存在
         if (res) {
@@ -32,5 +34,27 @@ class CartService {
             })
         }
     }
+    async findAll(pageNum, pageSize) {
+        const offset = (pageNum - 1) * pageSize
+        const { count, rows } = await Cart.findAndCountAll({
+            attributes: ['id', 'num', 'selected'],
+            offset: offset,
+            limit: pageSize * 1,
+            include: {
+                model: Goods,
+                as: "goods_info",
+                attributes: ['goods_name', 'goods_price', 'goods_img']
+            }
+        })
+        return {
+            pageNum,
+            pageSize,
+            total: count,
+            list: rows
+        }
+
+    }
+
+
 }
 module.exports = new CartService()

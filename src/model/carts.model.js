@@ -1,6 +1,7 @@
 // 导入sequelize
 const { DataTypes } = require("sequelize")
 const seq = require("../db/seq")
+const Goods = require("./goods.model")
     // 创建数据模型
 const Carts = seq.define('zd_cart', {
         user_id: {
@@ -25,6 +26,11 @@ const Carts = seq.define('zd_cart', {
             defaultValue: true,
             comment: "是否选中"
         }
+    })
+    // 与Goods表创建关联
+Carts.belongsTo(Goods, {
+        foreignKey: 'goods_id',
+        as: "goods_info"
     })
     // 同步数据库
     // Carts.sync({ force: true })

@@ -147,9 +147,13 @@ Service层更新数据库方法updategoods接受id和商品信息参数,使用�
 # 获取商品列表接口
 创建商品列表路由并创建回调,在回调中等待service层操作数据库成功后返回成功信息
 在Service层设置offset偏移量和limit字段并使用count和findAll方法或findAndCountAll方法根据offset和limit字段获得商品信息并返回
-# 添加购物车列表
+# 添加购物车列表接口
 创建路由、控制器、参数校验中间件
 参数校验商品id是否为number
 创建购物车数据模型指定字段goods_id,user_id,num,selected并指定类型,与数据库进行同步
 在控制器中查询数据库的goods_id和user_id字段是否存在，若存在则将Num值自增加1并重新载入数据库
 否则创建一条字段返回
+# 获取购物车列表接口
+在购物车数据模型中与商品模型使用belongsTo制造关联，外键为goods_id,
+创建路由并用auth中间件确认Token,在service层使用findAndCountAll获得购物车的总数、购物车商品信息
+将成功和商品信息返回
