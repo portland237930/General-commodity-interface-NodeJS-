@@ -61,18 +61,19 @@ class CartService {
         }
         // 更新购物车信息
     async update(params) {
-        // 解构参数
-        const { id, num, selected } = params
-        // 通过商品id查找商品信息
-        const res = await Cart.findByPk(id)
-            // 如果没有值就什么都不做
-        if (!res) return ''
-            // 更新数据
-        num !== undefined ? res.num = num : ''
-        selected !== undefined ? res.selected = selected : ''
-            // 将数据存于数据库
-        return res.save()
-    }
+            // 解构参数
+            const { id, num, selected } = params
+            // 通过商品id查找商品信息
+            const res = await Cart.findByPk(id)
+                // 如果没有值就什么都不做
+            if (!res) return ''
+                // 更新数据
+            num !== undefined ? res.num = num : ''
+            selected !== undefined ? res.selected = selected : ''
+                // 将数据存于数据库
+            return res.save()
+        }
+        // 删除购物车信息
     async deleteCart(ids) {
         try {
             // 删除指定字段
@@ -88,6 +89,17 @@ class CartService {
             console.error(error);
         }
     }
-
+    async selectAll(user_id) {
+        // 将该用户的所有selected字段设置为true
+        return await Cart.update({
+            selected: true,
+        }, { where: { user_id } })
+    }
+    async unselectAll(user_id) {
+        // 将该用户的所有selected字段设置为true
+        return await Cart.update({
+            selected: false
+        }, { where: { user_id } })
+    }
 }
 module.exports = new CartService()

@@ -7,7 +7,7 @@ const Router = require("koa-router");
 const { auth } = require("../middleware/auth_middlerware")
 const { validator } = require("../middleware/cartsvalidator")
     // 引入控制器
-const { addcarts, findAllCart, updateCarts, deleteCart } = require("../controller/cartcontroller")
+const { addcarts, findAllCart, updateCarts, deleteCart, SelectAllCarts, UnSelectAllCarts } = require("../controller/cartcontroller")
     // 创建路由并设置前缀
 const router = new Router({ prefix: '/carts' })
     // 编写路由规则
@@ -26,5 +26,9 @@ router.patch("/updatecarts/:id", auth, validator({
     }), updateCarts)
     // 删除购物车接口
 router.delete("/deletecart", auth, validator({ ids: "array" }), deleteCart)
+    // 购物车全选接口
+router.post("/selectAll", auth, SelectAllCarts)
+    // 购物车全不选接口
+router.post("/unselectAll", auth, UnSelectAllCarts)
     // 导出router对象
 module.exports = router

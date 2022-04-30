@@ -166,4 +166,6 @@ Service层更新数据库方法updategoods接受id和商品信息参数,使用�
 在koabody中间件中设置参数 parsedMethods: ['POST', 'PUT', 'PATCH', 'DELETE', 'GET']指定请求类型使ctx.request.body可以解析delete请求
 创建Delete请求类型的接口并设置登录校验和参数校验,在控制器中等待Service层完成后发送成功信息
 在Service层根据传来的数组使用[Op.in]使商品ID符合数组内任何数字的字段删除
-
+# 购物车全选和全不选接口
+创建两个post请求分别使用auth中间件Token校验,在控制器中解析出用户id并传入service层
+service层操作数据库根据用户id将符合的字段中selected全部为true或false
