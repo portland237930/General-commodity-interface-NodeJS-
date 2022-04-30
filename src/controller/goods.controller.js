@@ -97,13 +97,17 @@ class GoodsController {
                     result: ""
                 }
             } else {
+                // 商品id不存在
                 ctx.app.emit("error", invalidGoodsId, ctx)
             }
         }
         // 获取商品列表回调
     async findAllGoods(ctx) {
+        // 获得query参数
         const { pageNum = 1, pageSize = 10 } = ctx.request.query
+            // 等待查询成功信息
         const res = await findAll(pageNum, pageSize)
+            // 返回正确信息
         if (res) {
             ctx.body = {
                 code: 0,
@@ -113,4 +117,5 @@ class GoodsController {
         }
     }
 }
+// 导出商品控制器
 module.exports = new GoodsController()

@@ -76,4 +76,5 @@ class UserController {
         }
     }
 }
+// 导出用户控制器
 module.exports = new UserController()
