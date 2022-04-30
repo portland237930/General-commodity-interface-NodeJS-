@@ -5,7 +5,7 @@
 const path = require('path');
 // 引入错误信息
 const { FileUploadError, UnSupportFileError, publishGoodsError, invalidGoodsId } = require("../constant/err_type")
-const { createGoods, updategoods } = require("../service/goods.service")
+const { createGoods, updategoods, deletegoods } = require("../service/goods.service")
 class GoodsController {
     // 上传图片回调
     async UploadPictures(ctx, next) {
@@ -69,6 +69,21 @@ class GoodsController {
             }
         } catch (error) {
             console.error("商品更新失败", error);
+        }
+    }
+    async DeleteGoods(ctx) {
+        // 等待商品结果
+        const res = await deletegoods(ctx.params.id)
+            // console.log(res);
+            // 判断删除是否成功
+        if (res) {
+            ctx.body = {
+                code: "0",
+                message: "删除商品成功",
+                result: ""
+            }
+        } else {
+            ctx.app.emit("error", invalidGoodsId, ctx)
         }
     }
 }

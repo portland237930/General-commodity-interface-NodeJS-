@@ -24,5 +24,10 @@ class GoodsService {
             // 返回成功或失败结果
         return res[0] > 0 ? true : false
     }
+    async deletegoods(id) {
+        const res = await Goods.destroy({ where: { id } })
+            // console.log(res);
+        return res > 0
+    }
 }
 module.exports = new GoodsService()
