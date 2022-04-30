@@ -83,7 +83,7 @@ module.exports = {
     // 商品ID不存在
     invalidGoodsId: {
         code: "10205",
-        message: "商品ID不存在",
+        message: "无效的商品ID",
         result: ""
     }
 }

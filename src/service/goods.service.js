@@ -29,5 +29,9 @@ class GoodsService {
             // console.log(res);
         return res > 0
     }
+    async restoregoods(id) {
+        const res = await Goods.restore({ where: { id } })
+        return res > 0
+    }
 }
 module.exports = new GoodsService()

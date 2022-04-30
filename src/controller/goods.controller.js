@@ -5,7 +5,7 @@
 const path = require('path');
 // 引入错误信息
 const { FileUploadError, UnSupportFileError, publishGoodsError, invalidGoodsId } = require("../constant/err_type")
-const { createGoods, updategoods, deletegoods } = require("../service/goods.service")
+const { createGoods, updategoods, deletegoods, restoregoods } = require("../service/goods.service")
 class GoodsController {
     // 上传图片回调
     async UploadPictures(ctx, next) {
@@ -53,24 +53,25 @@ class GoodsController {
         }
         // 更新商品回调
     async UpdateGoods(ctx, next) {
-        try {
-            const res = await updategoods(ctx.params.id, ctx.request.body)
-                // 如果更新成功
-            if (res) {
-                // 返回成功信息
-                ctx.body = {
-                    code: "0",
-                    message: "商品更新成功",
-                    result: ""
+            try {
+                const res = await updategoods(ctx.params.id, ctx.request.body)
+                    // 如果更新成功
+                if (res) {
+                    // 返回成功信息
+                    ctx.body = {
+                        code: "0",
+                        message: "商品更新成功",
+                        result: ""
+                    }
+                } else {
+                    // 如果商品ID不存在
+                    ctx.app.emit("error", invalidGoodsId, ctx)
                 }
-            } else {
-                // 如果商品ID不存在
-                ctx.app.emit("error", invalidGoodsId, ctx)
+            } catch (error) {
+                console.error("商品更新失败", error);
             }
-        } catch (error) {
-            console.error("商品更新失败", error);
         }
-    }
+        // 下架商品回调
     async DeleteGoods(ctx) {
         // 等待商品结果
         const res = await deletegoods(ctx.params.id)
@@ -79,7 +80,19 @@ class GoodsController {
         if (res) {
             ctx.body = {
                 code: "0",
-                message: "删除商品成功",
+                message: "下架商品成功",
+                result: ""
+            }
+        } else {
+            ctx.app.emit("error", invalidGoodsId, ctx)
+        }
+    }
+    async RestoreGoods(ctx) {
+        const res = await restoregoods(ctx.params.id)
+        if (res) {
+            ctx.body = {
+                code: "0",
+                message: "商品上架成功",
                 result: ""
             }
         } else {

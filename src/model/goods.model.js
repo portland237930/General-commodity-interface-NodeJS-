@@ -27,7 +27,9 @@ const Goods = seq.define('zd_good', {
             comment: "商品图片URL"
         }
     }, {
-        timestamps: false
+        // timestamps: false
+        // 数据软删除
+        paranoid: true
     })
     // 同步数据库
     // Goods.sync({ force: true })

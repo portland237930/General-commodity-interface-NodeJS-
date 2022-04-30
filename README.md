@@ -140,3 +140,7 @@ Service层更新数据库方法updategoods接受id和商品信息参数,使用�
 # 硬删除商品接口
 创建put删除商品接口,url路径传入id,根据id在service层使用destoy方法删除商品
 成功则返回正确结果，商品id不存在则返回失败结果
+# 修改商品硬删除接口为下架商品接口,商品上架接口
+将put请求改为post请求,在Goods数据模型中添加字段paranoid: true,实现数据软删除(数据库中添加字段DeleteAt)
+若destory方法成功则deleteAt字段设置为删除时间,失败则返回失败回调
+创建restore接口并在回调中等待数据模型发送restore上架请求，清除deleteAt字段
