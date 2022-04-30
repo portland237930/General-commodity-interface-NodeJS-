@@ -4,11 +4,11 @@
 // 引入模块
 const path = require('path');
 // 引入错误信息
-const { FileUploadError, UnSupportFileError, publishGoodsError } = require("../constant/err_type")
-const { createGoods } = require("../service/goods.service")
+const { FileUploadError, UnSupportFileError, publishGoodsError, invalidGoodsId } = require("../constant/err_type")
+const { createGoods, updategoods } = require("../service/goods.service")
 class GoodsController {
     // 上传图片回调
-    async upload(ctx, next) {
+    async UploadPictures(ctx, next) {
             // 解析出上传文件
             const { file } = ctx.request.files
             console.log(file);
@@ -34,21 +34,41 @@ class GoodsController {
         }
         // 发布商品回调
     async PubGoods(ctx, next) {
+            try {
+                // 发起创建商品请求
+                const res = await createGoods(ctx.request.body)
+                    // 发起请求成功
+                if (res) {
+                    // 返回成功信息
+                    ctx.body = {
+                        code: "0",
+                        message: "发布商品成功",
+                        result: res
+                    }
+                }
+            } catch (error) {
+                console.error("商品发布失败", error);
+                ctx.app.emit("error", publishGoodsError, ctx)
+            }
+        }
+        // 更新商品回调
+    async UpdateGoods(ctx, next) {
         try {
-            // 发起创建商品请求
-            const res = await createGoods(ctx.request.body)
-                // 发起请求成功
+            const res = await updategoods(ctx.params.id, ctx.request.body)
+                // 如果更新成功
             if (res) {
                 // 返回成功信息
                 ctx.body = {
                     code: "0",
-                    message: "发布商品成功",
-                    result: res
+                    message: "商品更新成功",
+                    result: ""
                 }
+            } else {
+                // 如果商品ID不存在
+                ctx.app.emit("error", invalidGoodsId, ctx)
             }
         } catch (error) {
-            console.error("商品发布失败", error);
-            ctx.app.emit("error", publishGoodsError, ctx)
+            console.error("商品更新失败", error);
         }
     }
 }
