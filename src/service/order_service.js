@@ -14,6 +14,12 @@ class OrderService {
             limit: pageSize * 1
         })
     }
+    async updateorder(order) {
+        const { id, status } = order
+        return await Order.update({ status }, {
+            where: { id }
+        })
+    }
 }
 // 导出service
 module.exports = new OrderService()

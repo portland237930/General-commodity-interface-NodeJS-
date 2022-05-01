@@ -185,3 +185,6 @@ service层操作数据库根据用户id将符合的字段中selected全部为tru
 沿用MVC思想创建数据模型、Service和控制器controller传入address_id、goods_info和total三个参数并解析到user_id
 在数据模型指定参数并数据同步
 service层使用create方法创建数据字段
+# 获取订单列表接口完成
+由于和前面相似，不予笔记
+# 更新订单接口完成

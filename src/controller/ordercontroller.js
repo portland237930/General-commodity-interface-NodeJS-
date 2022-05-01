@@ -1,7 +1,7 @@
 // 引入Service
 // 引入外部模块
 const { nanoid } = require('nanoid')
-const { create, findAll } = require("../service/order_service")
+const { create, findAll, updateorder } = require("../service/order_service")
     // 创建控制器
 class OrderController {
     // 创建订单控制器
@@ -19,13 +19,26 @@ class OrderController {
         }
         // 获得订单列表控制器
     async findAllOrder(ctx) {
-        const { pageNum = 1, pageSize = 10, status = 0 } = ctx.request.query
-        console.log(pageNum, pageSize, status);
+            const { pageNum = 1, pageSize = 10, status = 0 } = ctx.request.query
+            console.log(pageNum, pageSize, status);
 
-        const res = await findAll({ pageNum, pageSize, status })
+            const res = await findAll({ pageNum, pageSize, status })
+            ctx.body = {
+                code: "0",
+                message: "获取订单列表成功",
+                result: res
+            }
+        }
+        // 修改订单状态控制器
+    async updateOrder(ctx) {
+        const { id } = ctx.request.params
+        const { status } = ctx.request.body
+            // console.log(address_id, status);
+
+        const res = await updateorder({ id, status })
         ctx.body = {
             code: "0",
-            message: "获取订单列表成功",
+            message: "修改订单状态成功",
             result: res
         }
     }
