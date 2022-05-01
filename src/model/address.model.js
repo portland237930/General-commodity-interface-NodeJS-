@@ -35,6 +35,6 @@ const Address = seq.define('zd_address', {
         }
     })
     // 同步数据库
-Address.sync({ force: true })
+    // Address.sync({ force: true })
     // 导出模型
 module.exports = Address

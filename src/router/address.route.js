@@ -8,9 +8,10 @@ const router = new Router({ prefix: "/address" })
     // 引入中间件和控制器
 const { auth } = require("../middleware/auth_middlerware")
 const { validator } = require("../middleware/address_middleware")
-const { AddressCommit } = require("../controller/addresscontroller")
+const { AddressCommit, GetAddressList, updateAddress } = require("../controller/addresscontroller")
     // 编写路由规则
-router.post("/", auth, validator({
+    // 添加地址接口
+router.post("/addaddress", auth, validator({
         // 指定校验格式
         consignee: "string",
         phone: {
@@ -19,5 +20,18 @@ router.post("/", auth, validator({
         },
         address: 'string',
     }), AddressCommit)
+    // 获取地址接口
+router.get("/getaddress", auth, GetAddressList)
+    // 修改地址接口
+router.put("/updateaddress/:id", auth, validator({
+            // 指定校验格式
+            consignee: "string",
+            phone: {
+                type: "string",
+                format: /^1\d{10}$/
+            },
+            address: 'string',
+        }),
+        updateAddress)
     // 导出路由
 module.exports = router
