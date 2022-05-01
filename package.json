@@ -20,6 +20,7 @@
         "koa-router": "^10.1.1",
         "koa-static": "^5.0.0",
         "mysql2": "^2.3.3",
+        "nanoid": "^3.3.3",
         "nodeman": "^1.1.2",
         "sequelize": "^6.19.0"
     },

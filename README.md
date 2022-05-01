@@ -181,3 +181,7 @@ service层操作数据库根据用户id将符合的字段中selected全部为tru
 在sevice层调用update方法根据地址id更改地址信息并将结果返回
 # 修改默认地址接口和删除地址接口完成
 沿用MVC思想使用user_id和地址id对数据表进行更新
+# 创建订单接口完成
+沿用MVC思想创建数据模型、Service和控制器controller传入address_id、goods_info和total三个参数并解析到user_id
+在数据模型指定参数并数据同步
+service层使用create方法创建数据字段

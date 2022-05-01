@@ -9,6 +9,7 @@ const validator = (rule) => {
             ctx.verifyParams(rule)
         } catch (error) {
             console.error(error);
+            OrderFormatError.result = error;
             ctx.app.emit("error", addressFormatError, ctx)
         }
         await next()
