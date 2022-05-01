@@ -30,8 +30,8 @@ const Address = seq.define('zd_address', {
         is_default: {
             type: DataTypes.TINYINT,
             allowNull: false,
-            defaultValue: 1,
-            comment: "是否为默认地址,默认为1"
+            defaultValue: 0,
+            comment: "是否为默认地址(1为默认地址),默认为0"
         }
     })
     // 同步数据库

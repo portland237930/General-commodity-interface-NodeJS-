@@ -22,7 +22,22 @@ class AddressService {
         }
         // 修改地址信息
     async update(id, addr) {
-        return await Address.update(addr, { where: { id } })
+            return await Address.update(addr, { where: { id } })
+        }
+        // 删除地址信息
+    async deleteAddr(id) {
+            return await Address.destroy({ where: { id } })
+        }
+        // 改变默认地址接口
+    async ChangeDefault(id, user_id) {
+        // 先将该用户所有is_default的值置为false
+        await Address.update({ is_default: false }, {
+                where: { user_id },
+            })
+            // 将指定id的is_default值设置为true
+        return await Address.update({ is_default: true }, {
+            where: { id }
+        })
     }
 }
 // 导出Service
