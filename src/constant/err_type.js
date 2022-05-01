@@ -91,5 +91,11 @@ module.exports = {
         code: "10301",
         message: "购物车数据格式错误",
         result: ""
+    },
+    // 地址数据格式错误
+    addressFormatError: {
+        code: "10401",
+        message: "地址数据格式错误",
+        result: ""
     }
 }

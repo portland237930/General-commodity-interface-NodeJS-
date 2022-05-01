@@ -1,3 +1,6 @@
+/**
+ * 购物车数据模型
+ */
 // 导入sequelize
 const { DataTypes } = require("sequelize")
 const seq = require("../db/seq")

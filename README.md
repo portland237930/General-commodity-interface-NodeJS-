@@ -169,3 +169,9 @@ Service层更新数据库方法updategoods接受id和商品信息参数,使用�
 # 购物车全选和全不选接口
 创建两个post请求分别使用auth中间件Token校验,在控制器中解析出用户id并传入service层
 service层操作数据库根据用户id将符合的字段中selected全部为true或false
+# 添加地址接口完成
+创建post请求并进行登录校验和指定参数校验
+在控制器解析出请求的参数传入service层
+创建address数据模型并同步数据库
+在service层向数据模型发起create请求将数据添加到数据库并将结果返回
+控制器返回成功信息
